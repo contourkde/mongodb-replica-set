@@ -1,0 +1,37 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "services": {
+    "mongo-1": {
+      "source": "./nodes",
+      "deploy": {
+        "volumes": ["/data/db"],
+        "numReplicas": 1
+      }
+    },
+    "mongo-2": {
+      "source": "./nodes",
+      "deploy": {
+        "volumes": ["/data/db"],
+        "numReplicas": 1
+      }
+    },
+    "mongo-3": {
+      "source": "./nodes",
+      "deploy": {
+        "volumes": ["/data/db"],
+        "numReplicas": 1
+      }
+    },
+    "init-cluster": {
+      "source": "./init-service",
+      "variables": {
+        "NODE1": "${{mongo-1.RAILWAY_PRIVATE_DOMAIN}}",
+        "NODE2": "${{mongo-2.RAILWAY_PRIVATE_DOMAIN}}",
+        "NODE3": "${{mongo-3.RAILWAY_PRIVATE_DOMAIN}}"
+      },
+      "deploy": {
+        "restartPolicyType": "NEVER"
+      }
+    }
+  }
+}

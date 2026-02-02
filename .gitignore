@@ -1,0 +1,6 @@
+# user folders
+user_scripts/
+
+# env files
+.env
+
