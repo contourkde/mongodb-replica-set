@@ -6,14 +6,13 @@ if [ -z "$MONGODB_KEYFILE_CONTENT" ]; then
     exit 1
 fi
 
-# Write keyfile (must be exactly 400 permissions for Mongo to start)
-# We use /tmp because on some restricted environments we might not have write access to /etc
+# Write keyfile to /tmp (often writable in hardened containers)
 echo "$MONGODB_KEYFILE_CONTENT" > /tmp/mongo-keyfile
 chmod 400 /tmp/mongo-keyfile
+chown mongodb:mongodb /tmp/mongo-keyfile
 
-# Start mongod with the required flags
-# - replSet: Defines the replica set name
-# - keyFile: Path to the internal auth key
-# - bind_ip_all: Listen on all interfaces
-# - port: Explicitly listen on 27017
-exec mongod --replSet rs0 --keyFile /tmp/mongo-keyfile --bind_ip_all --port 27017
+# We chain the official docker-entrypoint.sh to handle user creation (via MONGO_INITDB_ROOT_USERNAME/PASSWORD)
+# and then start mongod with our custom flags.
+#
+# Note: The official entrypoint expects the command to be 'mongod' to trigger its init logic.
+exec /usr/local/bin/docker-entrypoint.sh mongod --replSet rs0 --keyFile /tmp/mongo-keyfile --bind_ip_all --port 27017

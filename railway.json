@@ -6,6 +6,20 @@
       "deploy": {
         "volumes": ["/data/db"],
         "numReplicas": 1
+      },
+      "variables": {
+        "MONGODB_KEYFILE_CONTENT": {
+          "defaultValue": "${{secret(1024, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/')}}",
+          "description": "Base64 encoded keyfile content for internal auth"
+        },
+        "MONGO_INITDB_ROOT_USERNAME": {
+          "defaultValue": "admin",
+          "description": "Root username"
+        },
+        "MONGO_INITDB_ROOT_PASSWORD": {
+          "defaultValue": "${{secret(32)}}",
+          "description": "Root password"
+        }
       }
     },
     "mongo-2": {
@@ -13,6 +27,20 @@
       "deploy": {
         "volumes": ["/data/db"],
         "numReplicas": 1
+      },
+      "variables": {
+        "MONGODB_KEYFILE_CONTENT": {
+          "defaultValue": "${{mongo-1.MONGODB_KEYFILE_CONTENT}}",
+          "description": "Shared keyfile content (ref mongo-1)"
+        },
+        "MONGO_INITDB_ROOT_USERNAME": {
+          "defaultValue": "${{mongo-1.MONGO_INITDB_ROOT_USERNAME}}",
+          "description": "Root username (ref mongo-1)"
+        },
+        "MONGO_INITDB_ROOT_PASSWORD": {
+          "defaultValue": "${{mongo-1.MONGO_INITDB_ROOT_PASSWORD}}",
+          "description": "Root password (ref mongo-1)"
+        }
       }
     },
     "mongo-3": {
@@ -20,6 +48,20 @@
       "deploy": {
         "volumes": ["/data/db"],
         "numReplicas": 1
+      },
+      "variables": {
+        "MONGODB_KEYFILE_CONTENT": {
+          "defaultValue": "${{mongo-1.MONGODB_KEYFILE_CONTENT}}",
+          "description": "Shared keyfile content (ref mongo-1)"
+        },
+        "MONGO_INITDB_ROOT_USERNAME": {
+          "defaultValue": "${{mongo-1.MONGO_INITDB_ROOT_USERNAME}}",
+          "description": "Root username (ref mongo-1)"
+        },
+        "MONGO_INITDB_ROOT_PASSWORD": {
+          "defaultValue": "${{mongo-1.MONGO_INITDB_ROOT_PASSWORD}}",
+          "description": "Root password (ref mongo-1)"
+        }
       }
     },
     "init-cluster": {
@@ -27,7 +69,9 @@
       "variables": {
         "NODE1": "${{mongo-1.RAILWAY_PRIVATE_DOMAIN}}",
         "NODE2": "${{mongo-2.RAILWAY_PRIVATE_DOMAIN}}",
-        "NODE3": "${{mongo-3.RAILWAY_PRIVATE_DOMAIN}}"
+        "NODE3": "${{mongo-3.RAILWAY_PRIVATE_DOMAIN}}",
+        "MONGO_INITDB_ROOT_USERNAME": "${{mongo-1.MONGO_INITDB_ROOT_USERNAME}}",
+        "MONGO_INITDB_ROOT_PASSWORD": "${{mongo-1.MONGO_INITDB_ROOT_PASSWORD}}"
       },
       "deploy": {
         "restartPolicyType": "NEVER"
