@@ -4,6 +4,7 @@
     "mongo-1": {
       "source": "./nodes",
       "build": {
+        "builder": "DOCKERFILE",
         "dockerfilePath": "Dockerfile"
       },
       "deploy": {
@@ -28,6 +29,7 @@
     "mongo-2": {
       "source": "./nodes",
       "build": {
+        "builder": "DOCKERFILE",
         "dockerfilePath": "Dockerfile"
       },
       "deploy": {
@@ -52,6 +54,7 @@
     "mongo-3": {
       "source": "./nodes",
       "build": {
+        "builder": "DOCKERFILE",
         "dockerfilePath": "Dockerfile"
       },
       "deploy": {
@@ -76,6 +79,7 @@
     "init-cluster": {
       "source": "./init-service",
       "build": {
+        "builder": "DOCKERFILE",
         "dockerfilePath": "Dockerfile"
       },
       "variables": {
