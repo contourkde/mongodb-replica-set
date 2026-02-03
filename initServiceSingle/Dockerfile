@@ -1,5 +1,5 @@
 # Base image
-FROM mongodb/mongodb-community-server:8.0-ubi9
+FROM mongo:latest
 
 # Install curl
 RUN apt-get update && apt-get install -y curl
