@@ -9,5 +9,6 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 HEALTHCHECK --interval=10s --timeout=5s --start-period=30s --retries=3 \
     CMD mongosh --eval "db.adminCommand('ping')" || exit 1
 
-USER mongodb
+# Use numeric ID 999 (standard for mongodb in official images)
+USER 999
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

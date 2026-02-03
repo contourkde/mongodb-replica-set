@@ -9,7 +9,7 @@ fi
 # Write keyfile to /tmp (often writable in hardened containers)
 echo "$MONGODB_KEYFILE_CONTENT" > /tmp/mongo-keyfile
 chmod 400 /tmp/mongo-keyfile
-chown mongodb:mongodb /tmp/mongo-keyfile
+chown 999:999 /tmp/mongo-keyfile
 
 # We chain the official docker-entrypoint.sh to handle user creation (via MONGO_INITDB_ROOT_USERNAME/PASSWORD)
 # and then start mongod with our custom flags.
