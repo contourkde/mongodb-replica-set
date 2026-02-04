@@ -3,7 +3,7 @@
   "services": {
     "mongo-1": {
       "name": "mongo-1",
-      "rootDirectory": "nodes",
+      "rootDirectory": "/nodes",
       "build": {
         "builder": "DOCKERFILE",
         "dockerfilePath": "Dockerfile"
@@ -29,7 +29,7 @@
     },
     "mongo-2": {
       "name": "mongo-2",
-      "rootDirectory": "nodes",
+      "rootDirectory": "/nodes",
       "build": {
         "builder": "DOCKERFILE",
         "dockerfilePath": "Dockerfile"
@@ -55,7 +55,7 @@
     },
     "mongo-3": {
       "name": "mongo-3",
-      "rootDirectory": "nodes",
+      "rootDirectory": "/nodes",
       "build": {
         "builder": "DOCKERFILE",
         "dockerfilePath": "Dockerfile"
