@@ -1,0 +1,28 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "services": {
+    "mongodb": {
+      "name": "MongoDB",
+      "rootDirectory": "/",
+      "build": {
+        "builder": "DOCKERFILE",
+        "dockerfilePath": "Dockerfile"
+      },
+      "deploy": {
+        "volumes": ["/data/db"],
+        "numReplicas": 1,
+        "restartPolicyType": "ON_FAILURE"
+      },
+      "variables": {
+        "MONGO_INITDB_ROOT_USERNAME": {
+          "defaultValue": "admin",
+          "description": "Root username for MongoDB"
+        },
+        "MONGO_INITDB_ROOT_PASSWORD": {
+          "defaultValue": "${{secret(32)}}",
+          "description": "Root password for MongoDB"
+        }
+      }
+    }
+  }
+}
