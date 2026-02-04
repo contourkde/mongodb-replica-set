@@ -9,13 +9,13 @@ if [ -f "$KEYFILE_PATH" ]; then
   echo "Keyfile already exists at $KEYFILE_PATH. Skipping keyfile generation."
 else
   # Generate the keyfile from the environment variable
-  if [ -z "$MONGODB_KEYFILE_CONTENT" ]; then
-    echo "MONGODB_KEYFILE_CONTENT environment variable is not set. Exiting."
+  if [ -z "$KEYFILE" ]; then
+    echo "KEYFILE environment variable is not set. Exiting."
     exit 1
   fi
 
   echo "Generating keyfile from environment variable..."
-  echo "$MONGODB_KEYFILE_CONTENT" > "$KEYFILE_PATH"
+  echo "$KEYFILE" > "$KEYFILE_PATH"
   chown mongodb:mongodb "$KEYFILE_PATH"
   chmod 600 "$KEYFILE_PATH"
 fi
